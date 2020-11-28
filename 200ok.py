@@ -1,13 +1,10 @@
-import sys
-import os
 import platform
 import datetime
 import json
-from bottle import get, post, route, run, response, abort
+from bottle import route, run, response, abort
 
 
-@get('<url:re:.*>')
-@post('<url:re:.*>')
+@route('<url:re:.*>', method=['GET', 'POST'])
 def hello(url='/'):
 
     response.headers['Content-Type'] = 'application/json'
