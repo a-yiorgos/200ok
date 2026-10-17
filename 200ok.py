@@ -1,5 +1,6 @@
 import os
 import platform
+import time
 from datetime import datetime, timezone
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
@@ -7,11 +8,12 @@ import uvicorn
 
 app = FastAPI()
 
-@app.api_route("/{full_path:path}", methods=["GET", "POST"])
+@app.api_route("/{full_path:path}", methods=["GET", "POST", "PUT", "DELETE", "HEAD"])
 async def catch_all(request: Request, full_path: str):
     path = request.url.path
     datum = {
         "date": datetime.now(timezone.utc).isoformat(),
+        "timestamp": time.time(),
         "hostname": platform.node(),
         "url": path,
     }

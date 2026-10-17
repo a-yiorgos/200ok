@@ -1,12 +1,12 @@
 # 200ok
 
-A simple FastAPI application that returns HTTP 200 JSON responses on every GET and POST request it receives.
+A simple FastAPI application that returns HTTP 200 JSON responses on every GET, POST, PUT, DELETE, and HEAD request it receives.
 
 ## Features
 
 - Built with **FastAPI** and **uvicorn**
-- Handles GET and POST requests on any URL path
-- Returns JSON payload with timestamp, server hostname, and requested path
+- Handles GET, POST, PUT, DELETE, and HEAD requests on any URL path
+- Returns JSON payload with timestamp (ISO date and epoch seconds), server hostname, and requested path
 - Listens on port `8080` by default, or the port specified in the `PORT` environment variable
 - Dockerized with rootless user support on Python 3.12
 
