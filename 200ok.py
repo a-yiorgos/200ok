@@ -1,21 +1,24 @@
+import os
 import platform
-import datetime
-import json
-from bottle import route, run, response, abort
+import time
+from datetime import datetime, timezone
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+import uvicorn
 
+app = FastAPI()
 
-@route('<url:re:.*>', method=['GET', 'POST'])
-def hello(url='/'):
-
-    response.headers['Content-Type'] = 'application/json'
-
+@app.api_route("/{full_path:path}", methods=["GET", "POST", "PUT", "DELETE", "HEAD"])
+async def catch_all(request: Request, full_path: str):
+    path = request.url.path
     datum = {
-            "date": datetime.datetime.utcnow(),
-            "hostname": platform.node(),
-            "url": url,
+        "date": datetime.now(timezone.utc).isoformat(),
+        "timestamp": time.time(),
+        "hostname": platform.node(),
+        "url": path,
     }
+    return JSONResponse(content=datum)
 
-    return json.dumps( datum, default=str)
-
-
-run(host='0.0.0.0', port=8080, debug=True)
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", "8080"))
+    uvicorn.run(app, host="0.0.0.0", port=port)
