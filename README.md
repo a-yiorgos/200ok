@@ -34,6 +34,12 @@ Custom port using `PORT` environment variable:
 PORT=9090 python 200ok.py
 ```
 
+With custom text included in response JSON payload:
+
+```bash
+python 200ok.py --text "Custom response text"
+```
+
 ## Running with Docker
 
 Build the Docker image:

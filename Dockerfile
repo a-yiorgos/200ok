@@ -16,5 +16,4 @@ USER appuser
 
 EXPOSE 8080
 
-ENTRYPOINT ["python"]
-CMD ["200ok.py"]
+ENTRYPOINT ["python", "200ok.py"]
