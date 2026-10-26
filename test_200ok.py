@@ -15,6 +15,14 @@ def test_get_root():
     assert isinstance(data["timestamp"], (int, float))
     assert "hostname" in data
     assert data["url"] == "/"
+    assert "text" not in data
+
+def test_text_option(monkeypatch):
+    monkeypatch.setattr(app_module, "RESPONSE_TEXT", "hello world")
+    response = client.get("/")
+    assert response.status_code == 200
+    data = response.json()
+    assert data.get("text") == "hello world"
 
 def test_post_custom_path():
     response = client.post("/test/path?query=1")
